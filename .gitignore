@@ -1,3 +1,7 @@
+#custom for project
+config.json
+
+
 # Logs
 logs
 *.log
