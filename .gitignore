@@ -1,6 +1,9 @@
 #custom for project
 config.json
 
+#Mac crap
+.DS_Store
+
 
 # Logs
 logs
