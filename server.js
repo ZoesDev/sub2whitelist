@@ -56,27 +56,36 @@ This means when the server restarts, it'll generate a new string
 var secret = crypto.randomBytes(64).toString('hex');
 
 /* Session */
-const sess = require('express-session');
-const RedisStore = require('connect-redis')(sess);
-// for nginx/nrgok
-app.set('trust proxy', 1) // trust first proxy
-const session = sess({
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+// Usually you'll put the node process
+// behind a proxy such as nginx
+// so that proxy will handle the SSL Certs
+// trust proxy will tell the session handler to trust the SSL ness of the cookie
+// see also https://expressjs.com/en/guide/behind-proxies.html
+// for other options you may want to use something more specific than a true
+app.set('trust proxy', 1);
+
+// you can set the cookie max age
+//cookie: {
+//        maxAge: (30 * 60 * 1000)
+
+// For production see the node in the README.md
+// ## Nginx and Cookie Security
+// https://expressjs.com/en/advanced/best-practice-security.html#use-cookies-securely
+
+app.use(session({
     store: new RedisStore({
         client: redis_client
     }),
     secret,
     resave: true,
     saveUninitialized: false,
-    saveUninitialized: true,
     cookie: {
-        secure: true,
         secure: false
     },
     rolling: true
-});
-//cookie: {
-//        maxAge: (30 * 60 * 1000)
-app.use(session);
+}));
 
 /*
 Generic Error logger
@@ -155,12 +164,14 @@ function regenerateKey() {
 
             got({
                 url: 'https://id.twitch.tv/oauth2/token',
+                method: 'POST',
                 searchParams: {
                     grant_type: 'refresh',
                     refresh_token,
                     client_id: config.twitch.client_id,
                     client_secret: config.twitch.client_secret
-                }
+                },
+                responseType: 'json'
             })
             .then(resp => {
                 storeKeys(resp.body.access_token, resp.body.refresh_token);
@@ -412,7 +423,7 @@ app.use((req,res,next) => {
             + '?client_id=' + config.twitch.client_id
             + '&redirect_uri=' + encodeURIComponent(config.twitch.redirect_uri)
             + '&response_type=code'
-            + '&scope=moderation:read+channel:read:subscriptions'
+            + '&scope=moderation:read'
             + '&state=' + encodeURIComponent(req.session.state);
 
         res.render('broadcaster_keys_needed', {
