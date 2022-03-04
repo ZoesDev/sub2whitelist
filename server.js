@@ -5,6 +5,7 @@ const got = require('got');
 
 const express = require('express');
 
+const bodyParser = require('body-parser');
 const crypto = require('crypto');
 
 /*
@@ -453,8 +454,8 @@ app.get('/', (req,res) => {
     res.render('moderator_valid');
 });
 
-
+app.use(express.urlencoded());
 app.post('/', function (req, res) {
-    //console.log(req.body.username);
+    console.log(req.body.username);
     res.send('Post page');
 });
