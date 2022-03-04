@@ -16,9 +16,9 @@
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "got": "^11.8.3",
+    "minecraft-server-util": "^5.2.9",
     "mysql2": "^2.3.3",
     "pug": "^3.0.2",
-    "rcon-client": "^4.2.3",
     "redis": "^3.1.2"
   }
 }

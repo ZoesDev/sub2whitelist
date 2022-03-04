@@ -10,10 +10,9 @@ const crypto = require('crypto');
 
 
 const mysql = require('mysql2');
+const util = require('minecraft-server-util');
 
-
-
-
+const client = new util.RCON();
 /*
 Configurations
 Note: we don't bother error checking, coz if it errors you got bigger problems
@@ -33,6 +32,19 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
   });
+
+
+//minecraft stuff
+const connectOpts = {
+    timeout: 1000 * 5
+    // ... any other connection options specified by
+    // NetConnectOpts in the built-in `net` Node.js module
+};
+
+const loginOpts = {
+    timeout: 1000 * 5
+};
+
 
 /*
 Server
@@ -471,14 +483,29 @@ app.get('/', (req,res) => {
     res.render('moderator_valid');
 });
 
+//use body praser to get the req back from the form
 app.use(express.urlencoded());
 app.post('/', function (req, res) {
     console.log(req.body.username);
+    //insert the quarry into the database for future lookups
     var query = pool.query("INSERT INTO whitelist ( `channel`, `username`, `minecraft_account`) VALUES (?, ?, ?)",
     [config.twitch.broadcaster_id, "testing", req.body.username],
     function (error, results, fields) {
             if (error) throw error;
     });
+
+    //send command to whitelist user on the minecraft server
+
+
+    (async () => {
+        await client.connect(config.minecraft.mc_host, config.minecraft.mc_port, connectOpts);
+        await client.login(config.minecraft.mc_password, loginOpts);
+
+        const message = await client.execute('help');
+        console.log(message);
+
+        await client.close();
+    })();
 
     res.send('Post page');
 });
