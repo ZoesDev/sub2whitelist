@@ -10,7 +10,11 @@
     "mysql":{
         "username": "mysqlUserName",
         "password": "mysqlPassword",
-        "database": "mysqlDatabase",
         "host":"MysqlHost"
+    },
+    "minecraft":{
+        "mc_host":"",
+        "mc_port": "",
+        "mc_password": ""
     }
 }
