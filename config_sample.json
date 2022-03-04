@@ -6,5 +6,10 @@
         "redirect_uri": "http://MyReditectURI:8000/",
         "broadcaster_id": "ID_of_channel_tool_is_for"
     },
-    "appname": "myapplication"
+    "appname": "whitelist",
+    "mysql":{
+        "username": "mysqlUserName",
+        "password": "mysqlPassword",
+        "host":"MysqlHost"
+    }
 }

@@ -452,3 +452,9 @@ app.use((req,res,next) => {
 app.get('/', (req,res) => {
     res.render('moderator_valid');
 });
+
+
+app.post('/', function (req, res) {
+    //console.log(req.body.username);
+    res.send('Post page');
+});
