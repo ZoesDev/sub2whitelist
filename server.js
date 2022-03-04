@@ -8,6 +8,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 
+
+const mysql = require('mysql2');
+
+
+
+
 /*
 Configurations
 Note: we don't bother error checking, coz if it errors you got bigger problems
@@ -16,6 +22,17 @@ const config = JSON.parse(fs.readFileSync(path.join(
     __dirname,
     'config.json'
 )));
+
+
+const pool = mysql.createPool({
+    host: config.mysql.host,
+    user: config.mysql.username,
+    password: config.mysql.password,
+    database: config.mysql.database,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+  });
 
 /*
 Server
@@ -457,5 +474,11 @@ app.get('/', (req,res) => {
 app.use(express.urlencoded());
 app.post('/', function (req, res) {
     console.log(req.body.username);
+    var query = pool.query("INSERT INTO whitelist ( `channel`, `username`, `minecraft_account`) VALUES (?, ?, ?)",
+    [config.twitch.broadcaster_id, "testing", req.body.username],
+    function (error, results, fields) {
+            if (error) throw error;
+    });
+
     res.send('Post page');
 });
