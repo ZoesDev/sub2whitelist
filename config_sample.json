@@ -10,6 +10,7 @@
     "mysql":{
         "username": "mysqlUserName",
         "password": "mysqlPassword",
+        "database": "mysqlDatabase",
         "host":"MysqlHost"
     }
 }
