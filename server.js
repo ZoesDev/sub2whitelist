@@ -488,15 +488,13 @@ app.use(express.urlencoded());
 app.post('/', function (req, res) {
     console.log(req.body.username);
     //insert the quarry into the database for future lookups
-    var query = pool.query("INSERT INTO whitelist ( `channel`, `username`, `minecraft_account`) VALUES (?, ?, ?)",
-    [config.twitch.broadcaster_id, "testing", req.body.username],
+    var query = pool.query("INSERT INTO whitelist ( `channel`, `username`,`user_id`, `minecraft_account`) VALUES (?, ?, ?,?)",
+    [config.twitch.broadcaster_id, res.locals.user.login,res.locals.user.id, req.body.username],
     function (error, results, fields) {
             if (error) throw error;
     });
 
-    //send command to whitelist user on the minecraft server
-
-
+    send command to whitelist user on the minecraft server
     (async () => {
         await client.connect(config.minecraft.mc_host, config.minecraft.mc_port, connectOpts);
         await client.login(config.minecraft.mc_password, loginOpts);
