@@ -494,16 +494,16 @@ app.post('/', function (req, res) {
             if (error) throw error;
     });
 
-    send command to whitelist user on the minecraft server
+    //send command to whitelist user on the minecraft server
     (async () => {
         await client.connect(config.minecraft.mc_host, config.minecraft.mc_port, connectOpts);
         await client.login(config.minecraft.mc_password, loginOpts);
 
-        const message = await client.execute('help');
+        const message = await client.execute('whitelist add ' + req.body.username);
         console.log(message);
 
         await client.close();
     })();
 
-    res.send('Post page');
+    res.render('whitelist');
 });

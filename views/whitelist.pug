@@ -13,11 +13,9 @@ body
     if (auth_error)
         p An Auth Error Occured: #{auth_error}
     if (user)
-        p To Whitelist yourself on the server, enter your Minecraft username. If you have an account whitelisted already, it will be replaced
-
-        form(name="whitelist", method="post")
-            label(for='username') Minecraft Username:
-            br
-            input#username(type='text' name='username' value='minecraft name')
-            br
-            input(type='submit' value='Submit')
+        p You are now whitelisted on the server
+        p Server address is : node2.endofmine.com:25565
+        p
+            | Modpack information is at
+            |  
+            a(href='https://www.curseforge.com/minecraft/modpacks/end-of-mine-server-pack') End of Mine Server Pack
