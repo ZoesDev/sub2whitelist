@@ -336,7 +336,7 @@ app.use((req,res,next) => {
                 // as the broadcaster is not a moderator on their own channel
                 req.session.user = resp.body.data[0];
 
-                if (scope == 'moderation:read+channel:read:subscriptions') {
+                if (scope == 'moderation:read') {
                     // check that it's the configured broadcaster authenticate to prevent take over attacks
                     if (resp.body.data[0].id != config.twitch.broadcaster_id) {
                         // wrong broadcaster auth
