@@ -69,7 +69,12 @@ http.listen(config.listen, function() {
 });
 
 const redis = require('redis');
-const redis_client = redis.createClient();
+const redis_client = redis.createClient(
+    {
+        host: 'cache',
+        port: 6379
+    }
+);
 redis_client.on('error', (err) => {
     console.error('REDIS Error', err);
 });
