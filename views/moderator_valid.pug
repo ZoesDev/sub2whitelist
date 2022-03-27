@@ -1,23 +1,47 @@
-html
 doctype html
-head
-    title Welcome #{user.login}
-    link(rel="stylesheet" href="/style.css")
-body
-    if (user)
-        a(href="/logout/" style="float: right;") Logout
-    h1 Welcome #{user.login}
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description' content='')
+    meta(name='author' content='')
+    title Whitelisting
+    // Favicon
+    link(rel='icon' type='image/x-icon' href='assets/favicon.ico')
+    // Bootstrap icons
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css' rel='stylesheet' type='text/css')
+    // Google fonts
+    link(href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css')
+    // Core theme CSS (includes Bootstrap)
+    link(href='css/styles.css' rel='stylesheet')
+  body
+    // Navigation
+    nav.navbar.navbar-light.bg-light.static-top
+      .container
+        a.navbar-brand(href='#!')
+        a.btn.btn-primary(href='/logout') Logout
+    //
+    section.features-icons.bg-light.text-center
+      .container
+        h1 Whitelist Login
 
-    if (error)
-        p An Error Occured: #{error}
-    if (auth_error)
-        p An Auth Error Occured: #{auth_error}
-    if (user)
-        p To Whitelist yourself on the server, enter your Minecraft username. If you have an account whitelisted already, it will be replaced
+        p To Continue please login!
 
-        form(name="whitelist", method="post")
-            label(for='username') Minecraft Username:
-            br
-            input#username(type='text' name='username' placeholder='minecraft name')
-            br
-            input(type='submit' value='Submit')
+        if (error)
+            p An Error Occured: #{error}
+        if (auth_error)
+            p An Auth Error Occured: #{auth_error}
+        if (user)
+            p To Whitelist yourself on the server, enter your Minecraft username. If you have an account whitelisted already, it will be replaced
+
+            form(name="whitelist", method="post")
+                label(for='username') Minecraft Username:
+                br
+                input#username(type='text' name='username' placeholder='minecraft name')
+                br
+                input(type='submit' value='Submit')
+
+    // Bootstrap core JS
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js')
+    // Core theme JS
+    script(src='js/scripts.js')
