@@ -336,7 +336,7 @@ app.use((req,res,next) => {
                 // as the broadcaster is not a moderator on their own channel
                 req.session.user = resp.body.data[0];
 
-                if (scope == 'moderation:read+channel:read:subscriptions') {
+                if (scope == 'channel:read:subscriptions') {
                     // check that it's the configured broadcaster authenticate to prevent take over attacks
                     if (resp.body.data[0].id != config.twitch.broadcaster_id) {
                         // wrong broadcaster auth
@@ -400,27 +400,6 @@ function accessChecks(user_id, req, res, next) {
             req.session.permitted = true;
             req.session.subscriber = true;
         }
-
-        return got({
-            url: 'https://api.twitch.tv/helix/moderation/moderators',
-            method: 'GET',
-            headers: {
-                'Client-ID': config.twitch.client_id,
-                'Authorization': 'Bearer ' + keystate
-            },
-            searchParams: {
-                broadcaster_id: config.twitch.broadcaster_id,
-                user_id
-            },
-            responseType: 'json'
-        })
-    })
-    .then(resp => {
-        if (resp.body.data && resp.body.data.length == 1) {
-            // yay
-            req.session.permitted = true;
-            req.session.moderator = true;
-        }
     })
     .catch(err => {
         console.error('Error body:', err.response.body);
@@ -429,7 +408,7 @@ function accessChecks(user_id, req, res, next) {
     })
     .finally(() => {
         if (!req.session.permitted) {
-            req.session.error = 'You are not a subscriber or moderator, access denied';
+            req.session.error = 'You are not a subscriber, access denied';
         }
         res.redirect('/');
     });
@@ -458,12 +437,13 @@ app.use((req,res,next) => {
             + '?client_id=' + config.twitch.client_id
             + '&redirect_uri=' + encodeURIComponent(config.twitch.redirect_uri)
             + '&response_type=code'
-            + '&scope=moderation:read+channel:read:subscriptions'
+            + '&scope=channel:read:subscriptions'
             + '&state=' + encodeURIComponent(req.session.state);
 
         res.render('broadcaster_keys_needed', {
             authenticate
         });
+        console.log(req.session.state);
     } else if (!req.session.permitted) {
         req.session.state = crypto.randomBytes(16).toString('base64');
 
