@@ -19,7 +19,8 @@ html(lang='en')
     nav.navbar.navbar-light.bg-light.static-top
       .container
         a.navbar-brand(href='#!')
-        a.btn.btn-primary(href='/logout') Logout
+        if (user)
+            a.btn.btn-primary(href='/logout') Logout
     //
     section.features-icons.bg-light.text-center
       .container
