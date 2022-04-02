@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "GPLv2",
   "dependencies": {
     "body-parser": "^1.19.2",
     "connect-redis": "^6.1.1",
