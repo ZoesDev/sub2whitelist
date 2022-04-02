@@ -8,7 +8,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 
-
+//if logging who is who is not needed rmeove lines related to mysql
 const mysql = require('mysql2');
 const util = require('minecraft-server-util');
 
@@ -71,8 +71,8 @@ http.listen(config.listen, function() {
 const redis = require('redis');
 const redis_client = redis.createClient(
     {
-        host: 'cache',
-        port: 6379
+        host: config.redis.host,
+        port: config.redis.port
     }
 );
 redis_client.on('error', (err) => {
@@ -456,7 +456,7 @@ app.use((req,res,next) => {
             // there is an argument to use OIDC here
 
         // login
-        res.render('moderator_login', {
+        res.render('sub_login', {
             authenticate
         });
     } else {
@@ -465,7 +465,7 @@ app.use((req,res,next) => {
 });
 
 app.get('/', (req,res) => {
-    res.render('moderator_valid');
+    res.render('sub_valid');
 });
 
 //use body praser to get the req back from the form

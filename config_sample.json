@@ -12,6 +12,10 @@
         "password": "mysqlPassword",
         "host":"MysqlHost"
     },
+    "redis":{
+        "host": 'cache',
+        "port": 6379
+    },
     "minecraft":{
         "mc_host":"",
         "mc_port": "",
