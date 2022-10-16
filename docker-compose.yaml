@@ -10,6 +10,8 @@ services:
     links:
       - "cache:cache"
     build: .
+    volumes:
+      - ./config.json:/usr/src/app/config.json
     ports:
       - "8000:8000"
     restart: always
