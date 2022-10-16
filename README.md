@@ -16,15 +16,15 @@ This software will allow you to have your subscribers to be whitelisted on any M
 		* NodeJs 17.x
 * API keys from https://dev.twitch.tv
 	* Redirect URL: http://localhost:8000 or what you are using as your base URL
-	* Category: WEbsite Integration
-	* You will need the Client ID and Silent Secret
+	* Category: Website Integration
+	* You will need the Client ID and Client Secret
 
 
 ## Docker-compose Setup
-1. download the zip or git clone the url
+1. Download the zip or git clone the url
 2. Copy the config_sample.json to config.json
 3. Fill in the information in each section. Everything is required.
-	* client_id : from the CLientID from before
+	* client_id : from the ClientID from before
 	* client_secret : from the Client Secret from before
 	* redirect_uri : match to exactly what you have in the redirect URL of your API Application.
 	* broadcaster_id : Is the ID of the Broadcaster that the subs are from
@@ -36,7 +36,7 @@ This software will allow you to have your subscribers to be whitelisted on any M
 	* mc_password : Password set for RCON on the minecraft server
 4. Run `docker-compose build` to build the docker container
 5. Run `docker-compose up -d` to run the container and redis server
-6. Have the Boardcaster Login to the site to authenticate.
+6. Have the broadcaster login to the site to authenticate.
 	* This will have the broadcaster authorize on Twitch the permission channel:read:subscriptions.
 7. Subscribers will now be able to login and fill in the information of their Minecraft account to whitelist on the server
 
@@ -45,9 +45,9 @@ This software will allow you to have your subscribers to be whitelisted on any M
 1. download the zip or git clone the url
 2. Copy the config_sample.json to config.json
 3. Fill in the information in each section. Everything is required.
-	* client_id : from the CLientID from before
+	* client_id : from the ClientID from before
 	* client_secret : from the Client Secret from before
-	* redirect_uri : match to exactly what you have in the rediect URL of your API Application.
+	* redirect_uri : match to exactly what you have in the redirect URL of your API Application.
 	* broadcaster_id : Is the ID of the Broadcaster that the subs are from
 	* username : Mysql username
 	* password : Mysql password
@@ -58,6 +58,6 @@ This software will allow you to have your subscribers to be whitelisted on any M
 4. Run `npm install` to install dependencies
 5. Run `npm start` to run nodejs app
 	* You will need to handle Redis install with this setup
-6. Have the Boardcaster Login to the site to authenticate.
+6. Have the broadcaster login to the site to authenticate.
 	* This will have the broadcaster authorize on Twitch the permission channel:read:subscriptions.
 7. Subscribers will now be able to login and fill in the information of their Minecraft account to whitelist on the server
