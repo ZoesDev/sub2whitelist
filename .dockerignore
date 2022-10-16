@@ -1,0 +1,8 @@
+- .gitignore 
+- config_sample.json 
+- LICENSE 
+- config.json 
+- node_modules 
+- .dockerignore 
+- Dockerfile
+- whitelist.sql
